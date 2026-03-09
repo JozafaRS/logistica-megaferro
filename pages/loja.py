@@ -22,11 +22,10 @@ def processar_formacao_carga(arquivo):
             ['Empresa', 'Dt. Neg.', 'Nome Fantasia (Empresa Negociação)', 'Local',
             'Caixa', 'Nro. Único', 'Parceiro', 'Nome Parceiro (Parceiro)',
             'Vlr. Nota', 'Nome Cidade (Parceiro)', 'Ordem de carga',
-            'Sequência da carga', 'Apelido', 'Peso a Entregar', 'Região (Cidade)',
+            'Sequência da carga', 'Peso bruto dos Itens', 'Apelido',
             'Descrição (Tipo de Operação)', 'Tipo de entrega', 'ENTREGUE',
-            'Tipo Operação', 'OBSERVAÇÃO COMERCIAL 2',
-            'Cód. Região Cidade (Parceiro)'
-            ],
+            'Peso a Entregar', 'Tipo Operação', 'OBSERVAÇÃO COMERCIAL 2',
+            'Tipo de Cálculo de Frete'],
             ['Dt. Neg.' ]
         )
     except Exception as e:
@@ -81,8 +80,8 @@ def processar_portal_vendas(arquivo):
             data_frame, 
             ['Empresa', 'Dt. do Faturamento', 'Ordem de carga', 'Status NF-e',
             'Nro. Único', 'Nro. Nota', 'Parceiro', 'Nome Parceiro (Parceiro)',
-            'Valor', 'Descrição (Tipo de Negociação)', 'Peso', 'ENTREGUE',
-            'NOME RÁPIDO', 'Vendedor', 'Apelido (Vendedor)', 'Vlr. Nota',
+            'Valor', 'Descrição (Tipo de Negociação)', 'Apelido (Vendedor)', 'Peso',
+            'ENTREGUE', 'NOME RÁPIDO', 'Vendedor', 'Vlr. Nota',
             'Descrição (Tipo de Pedido)', 'Descrição (Tipo de Operação)',
             'Status da Nota', 'Nome (Usuário Alteração)', 'Anular Comissão',
             'Comissão', 'Confirmada', 'Cód. Usuário', 'Cód. Usuário Inclusão',
@@ -144,11 +143,12 @@ def processar_valores_carga(arquivo):
     try:
         up.validar_planilha(
             data_frame, 
-            ['Ordem Mãe', 'Cód Veículo', 'Veículo', 'Rota', 'Situação da OC',
-            'Motorista', 'TOTAL', 'DESPESAS', 'PERCC', 'RPA', 'TERCERIZADO',
-            'COMBUSTIVEL', 'CHAPA', 'Despesa 501', 'PEDAGIO', 'DIARIA',
-            'ALIMENTACAO', 'VALOR', 'Peso Máximo', 'PESO', 'Cód Região',
-            'CAPACIDADE', 'VALE_FRETE', 'OUTRAS', 'TRANSFERENCIAS'],
+            ['Empresa', 'Ordem de carga', 'AD_ORDEMCARGA', 'Dt saida', 'Cód Veiculo',
+            'Placa', 'Cód Região', 'Rota', 'Situação', 'Cód Motorista', 'Motorista',
+            'Valor', 'Despesas', 'Custo por Valor', 'Tercerizado', 'Despesas 501',
+            'Chapa', 'RPA', 'Peso', 'Peso Max', 'Capacidade', 'Combustivel',
+            'Alimentação', 'Diaria', 'Pedágio', 'Vale Frete', 'Outras',
+            'Transferencias', 'Total'],
         )
     except Exception as e:
         progresso.empty()
@@ -161,7 +161,7 @@ def processar_valores_carga(arquivo):
     progresso.progress(2/4, 'Filtrando Registros...')
 
     try:
-        novos_dados = up.filtrar_novos_dados(data_frame, "ordem_mae_megaferro", 'ordem_mae')
+        novos_dados = up.filtrar_novos_dados(data_frame, "valores_de_carga_megaferro", 'ordem_de_carga')
     except Exception as e:
         progresso.empty()
         st.error(f'Erro ao se conectar ao banco de dados. Erro: {e}')
