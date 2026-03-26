@@ -181,7 +181,7 @@ def processar_valores_carga(arquivo):
         st.success(f'Base de dados atualizada com sucesso! {len(novos_dados)} registros adicionados')
     except Exception as e:
         progresso.empty()
-        st.warning(f'Houve um erro ao enviar dados. Erro: {e}')
+        st.error(f'Houve um erro ao enviar dados. Erro: {e}')
         return
 
 def page_upload():
