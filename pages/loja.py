@@ -175,13 +175,13 @@ def processar_valores_carga(arquivo):
     progresso.progress(3/4, 'Enviando Dados...')
 
     try:
-        up.adicionar_registros(novos_dados, 'ordem_mae_megaferro')
+        up.adicionar_registros(novos_dados, 'valores_de_carga_megaferro')
         progresso.progress(4/4, 'Finalizado!')
         progresso.empty()
         st.success(f'Base de dados atualizada com sucesso! {len(novos_dados)} registros adicionados')
     except Exception as e:
         progresso.empty()
-        st.warning(f'Houve um erro ao enviar dados. Erro: {e}')
+        st.error(f'Houve um erro ao enviar dados. Erro: {e}')
         return
 
 def page_upload():
