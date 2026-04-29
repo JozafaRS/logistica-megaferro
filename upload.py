@@ -8,7 +8,7 @@ def validar_planilha(data_frame: pd.DataFrame, colunas_esperadas: list[str], col
     if data_frame.empty:
         raise ValueError('Planilha Vazia')
 
-    if list(data_frame.columns) != colunas_esperadas:
+    if set(data_frame.columns) != set(colunas_esperadas):
         raise TypeError('Colunas Incompatíveis')
     
     for coluna in colunas_data:
